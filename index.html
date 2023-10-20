@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>conVeu</title>
+        <link rel="stylesheet" href="./styles/style.css">
+    </head>
+
+<body>
+    <div id="appThemeal"  class="contenedor d-flex">
+            <header class="d-flex header colw-1">
+                <div class="colw-5">
+                    <img src="./imagenes/chef100.png" alt="">
+                </div>
+                <div class="titulo colw-2-10">
+                    <h1 class="ttl">Cooking<br class="md"/> for Dommis </h1>
+                </div>
+                <div class="colw-5">
+                    <img src="./imagenes/chef101.png" alt="">
+                </div>
+            </header>
+            <nav class="menu colw-1">
+                <ul>
+                    <li  v-for="icon in icons"><img :src="icon.src" :alt="icon.alt" :title="icon.alt" :value="icon.alt"></li>
+                </ul>
+            </nav>
+            <section class="cajon">     
+                <div class="comidas d-flex">
+                    <div v-for="slice in slices" class="sopa">
+                        <img :src="slice" alt="">
+                    </div>
+                    <div v-for="slice in slices" class="sopa">
+                        <img :src="slice" alt="">
+                    </div>
+                </div>
+            </section>
+            <section class="colw-sm-1 colw-md-6 colw-lg-6" style="background-color: rgb(255, 205, 180);">
+                <h1>filtros y eso</h1>
+            </section>
+            <section class="d-flex colw-sm-1 colw-md-2-3 colw-lg-2-3">
+                <div class="colw-sm-1 colw-md-2 colw-lg-3" v-for="card in cards" :key="card.idMeal" :id="card.idMeal">
+                    <div class="pcard" @click="recetaData(card.idMeal)">
+                        <img class="colw-1" :src="card.strMealThumb" />
+                        <h4 class="">{{ card.strMeal }}</h4>
+                    </div>
+                </div>
+                <div class="d-flex colw-1 bttns">
+                    <button @click="changePage(-1)" :disabled='less' class="colw-sm-5 colw-md-6 colw-lg-6_2 pgBttn">Prev</button>
+                    <button @click="changePage(1)" :disabled='plus' class="colw-sm-5 colw-md-6 colw-lg-6_2 pgBttn">Next</button>
+                </div>
+            </section>
+            <article class="popup d-flex" style="visibility: hidden;">
+                <article class="colw-2-3">
+                    <h1 class="nameMeal">{{meal.strMeal}}</h1>
+                    <h4 class="originMeal">Origin: <span>{{meal.strArea}}</span></h4>
+                </article>
+                <article class="colw-6 bttnClose">
+                    <button class="bttnX" @click="coseMeal"><strong>X</strong></button>
+                </article>
+                <article class="popcontain d-flex">
+                    <article class="d-flex colw-1">
+                        <p class="colw-2 pInfo">{{meal.strInstructions}}</p>
+                        <img class="imgMeal" :src="meal.strMealThumb" />
+                    </article>
+                    <article class="colw-1 d-flex">
+                        <h4 class="originMeal colw-1">Ingredients:</h4>
+                        <ul class="colw-4">
+                            <li class="ingLi" v-if="meal.strIngredient1">{{meal.strIngredient1}} - {{meal.strMeasure1}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient4">{{meal.strIngredient4}} - {{meal.strMeasure4}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient7">{{meal.strIngredient7}} - {{meal.strMeasure7}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient10">{{meal.strIngredient10}} - {{meal.strMeasure10}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient13">{{meal.strIngredient13}} - {{meal.strMeasure13}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient16">{{meal.strIngredient16}} - {{meal.strMeasure16}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient19">{{meal.strIngredient19}} - {{meal.strMeasure19}}</li>
+                        </ul>
+                        <ul class="colw-4">
+                            <li class="ingLi" v-if="meal.strIngredient2">{{meal.strIngredient2}} - {{meal.strMeasure2}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient5">{{meal.strIngredient5}} - {{meal.strMeasure5}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient8">{{meal.strIngredient8}} - {{meal.strMeasure8}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient11">{{meal.strIngredient11}} - {{meal.strMeasure11}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient14">{{meal.strIngredient14}} - {{meal.strMeasure14}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient17">{{meal.strIngredient17}} - {{meal.strMeasure17}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient20">{{meal.strIngredient20}} - {{meal.strMeasure20}}</li>
+                        </ul>
+                        <ul class="colw-4">
+                            <li class="ingLi" v-if="meal.strIngredient3">{{meal.strIngredient3}} - {{meal.strMeasure3}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient6">{{meal.strIngredient6}} - {{meal.strMeasure6}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient9">{{meal.strIngredient9}} - {{meal.strMeasure9}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient12">{{meal.strIngredient12}} - {{meal.strMeasure12}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient15">{{meal.strIngredient15}} - {{meal.strMeasure15}}</li>
+                            <li class="ingLi" v-if="meal.strIngredient18">{{meal.strIngredient18}} - {{meal.strMeasure18}}</li>
+                        </ul>
+                    </article>
+                </article>
+            </article>
+            <section class="colw-1" style="background-color: rgb(255, 180, 254);">
+                <h1>Footer</h1>
+            </section>
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script/script.js"></script>
+
+</body>
+
+</html>
